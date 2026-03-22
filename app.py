@@ -1,6 +1,7 @@
 import streamlit as st
 
-from src.sample_database import create_sample_database
+from src.config import is_default_sample_database, load_settings
+from src.sample_database import ensure_sample_database
 from src.sql_rag_agent import SQLRAGAssistant
 
 
@@ -124,7 +125,9 @@ def init_state():
             }
         ]
     if "assistant" not in st.session_state:
-        create_sample_database()
+        settings = load_settings()
+        if is_default_sample_database(settings["database_uri"]):
+            ensure_sample_database()
         st.session_state.assistant = SQLRAGAssistant(top_k=5, verbose=False)
     if "pending_prompt" not in st.session_state:
         st.session_state.pending_prompt = None

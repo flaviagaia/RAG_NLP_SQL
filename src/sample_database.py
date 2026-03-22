@@ -102,13 +102,13 @@ ORDER_ITEMS = [
 ]
 
 
-def create_sample_database(db_path: Path | None = None) -> Path:
+def create_sample_database(db_path: Path | None = None, reset: bool = False) -> Path:
     db_path = db_path or DB_PATH
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    if db_path.exists():
-        db_path.unlink()
 
     engine = create_engine(f"sqlite:///{db_path}")
+    if reset:
+        Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
     Session = sessionmaker(bind=engine)
@@ -124,10 +124,18 @@ def create_sample_database(db_path: Path | None = None) -> Path:
         session.merge(OrderItem(**row))
     session.commit()
     session.close()
+    engine.dispose()
 
     return db_path
 
 
+def ensure_sample_database(db_path: Path | None = None) -> Path:
+    db_path = db_path or DB_PATH
+    if db_path.exists():
+        return db_path
+    return create_sample_database(db_path, reset=False)
+
+
 if __name__ == "__main__":
-    path = create_sample_database()
+    path = create_sample_database(reset=True)
     print(f"Sample database created at: {path}")

@@ -62,6 +62,7 @@ pip install -r requirements.txt
 ```bash
 OPENAI_API_KEY=your_key_here
 OPENAI_MODEL=gpt-4o-mini
+DATABASE_URI=sqlite:///data/company_sales.db
 ```
 
 4. Rode a interface:
@@ -81,6 +82,15 @@ Em resumo:
 
 - sem chave: experiência demonstrável e offline;
 - com chave: fluxo real de agent SQL com geração dinâmica de consultas.
+
+### Segurança da Base de Dados
+
+O app não recria automaticamente bancos configurados pelo usuário.
+
+- se você estiver usando a base demo padrão, o projeto cria o SQLite de exemplo apenas quando ele ainda não existe;
+- se você definir `DATABASE_URI` para outro banco, o app não faz seed automático nem tenta sobrescrever seus dados.
+
+Isso permite adaptar o projeto para um ambiente real com mais segurança.
 
 ### Exemplos de perguntas
 
@@ -107,6 +117,12 @@ Na prática, o valor do projeto está justamente nessa separação:
 - o banco fornece os dados estruturados;
 - o contexto RAG fornece conhecimento semântico sobre o negócio;
 - o agent transforma perguntas naturais em SQL utilizável.
+
+### Versão de Python Recomendada
+
+Para o modo completo com `LangChain + OpenAI`, a recomendação prática é usar Python `3.11` ou `3.12`.
+
+O projeto funciona localmente em modo demo neste ambiente, mas algumas dependências do ecossistema LangChain ainda emitem avisos de compatibilidade em Python `3.14`.
 
 ---
 
@@ -172,6 +188,7 @@ pip install -r requirements.txt
 ```bash
 OPENAI_API_KEY=your_key_here
 OPENAI_MODEL=gpt-4o-mini
+DATABASE_URI=sqlite:///data/company_sales.db
 ```
 
 4. Launch the interface:
@@ -191,6 +208,15 @@ In short:
 
 - without an API key: demonstrable offline experience;
 - with an API key: real SQL agent workflow with dynamic query generation.
+
+### Database Safety
+
+The app does not automatically recreate user-configured databases.
+
+- if you are using the default demo database, the project creates the sample SQLite file only when it does not already exist;
+- if you set `DATABASE_URI` to another database, the app does not seed data automatically and does not try to overwrite your data.
+
+This makes the project safer to adapt to real environments.
 
 ### Example questions
 
@@ -217,3 +243,9 @@ In practice, the main value of the project comes from this separation:
 - the database provides structured data;
 - the RAG context provides semantic business knowledge;
 - the agent converts natural-language questions into usable SQL.
+
+### Recommended Python Version
+
+For the full `LangChain + OpenAI` mode, the practical recommendation is to use Python `3.11` or `3.12`.
+
+The project runs locally in demo mode in this environment, but some LangChain ecosystem dependencies still emit compatibility warnings on Python `3.14`.

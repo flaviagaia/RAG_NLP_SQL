@@ -1,9 +1,12 @@
-from src.sample_database import create_sample_database
+from src.config import is_default_sample_database, load_settings
+from src.sample_database import ensure_sample_database
 from src.sql_rag_agent import SQLRAGAssistant
 
 
 def main():
-    create_sample_database()
+    settings = load_settings()
+    if is_default_sample_database(settings["database_uri"]):
+        ensure_sample_database()
     assistant = SQLRAGAssistant(top_k=5, verbose=False)
 
     print("RAG NLP SQL Assistant")
