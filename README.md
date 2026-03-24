@@ -12,6 +12,10 @@ Projeto em Python que combina `LangChain`, `OpenAI` e `SQLite` para responder pe
 - executa a consulta em um banco `SQLite`;
 - devolve uma resposta em linguagem natural com base no resultado.
 
+### Interface
+
+![Interface do projeto](assets/RAG_NLP_SQL.jpg)
+
 ### Arquitetura
 
 O fluxo principal é:
@@ -137,6 +141,10 @@ Python project that combines `LangChain`, `OpenAI`, and `SQLite` to answer natur
 - automatically generates SQL with `LangChain`;
 - executes queries against a `SQLite` database;
 - returns a natural-language answer grounded in the query result.
+
+### Interface
+
+![Project interface](assets/RAG_NLP_SQL.jpg)
 
 ### Architecture
 
